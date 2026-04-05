@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Encontre seu Imóvel Ideal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold:       #C8A84B;
+    --gold-light: #DFC278;
+    --gold-dark:  #A8892E;
+    --deep:       #0D2B4E;
+    --brand:      #1B4F8A;
+    --mid:        #2E6DB4;
+    --sky:        #4A90D9;
+    --mist:       #D6E8F7;
+    --white:      #FFFFFF;
+    --text-on-dark:  #E8F0FA;
+    --muted-on-dark: rgba(232,240,250,0.62);
+    --text-dark:  #0D2B4E;
+    --muted-light:#5A7A9A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: var(--brand);
+  }
+
+  /* ── HERO — dark navy ── */
+  .hero {
+    background: var(--deep);
+    padding: 36px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* wave transition to brand blue */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 32px;
+    background: var(--brand);
+    clip-path: ellipse(54% 100% at 50% 100%);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(200,168,75,0.13);
+    border: 1px solid rgba(200,168,75,0.32);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 22px;
+  }
+  .badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%    { opacity:.5; transform:scale(1.5); }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 7vw, 44px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text-on-dark);
+    margin-bottom: 14px;
+  }
+  h1 em { font-style: normal; color: var(--gold); }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--muted-on-dark);
+    line-height: 1.6;
+    max-width: 340px;
+    margin: 0 auto 28px;
+  }
+
+  .social-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 8px 16px 8px 10px;
+  }
+  .avatars { display: flex; }
+  .avatars span {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--deep);
+    margin-left: -7px;
+    background: var(--mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 600; color: #fff;
+    flex-shrink: 0;
+  }
+  .avatars span:first-child { margin-left: 0; }
+  .proof-text { font-size: 12px; color: var(--muted-on-dark); line-height: 1.35; }
+  .proof-text strong { color: #fff; }
+
+  /* ── BODY — brand blue ── */
+  .body-section {
+    background: var(--brand);
+    padding: 32px 24px 60px;
+  }
+
+  /* Form card — white */
+  .form-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 28px 22px 22px;
+    box-shadow: 0 10px 48px rgba(13,43,78,0.28);
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.45s 0.1s ease both;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+  }
+
+  .steps {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; margin-bottom: 20px;
+  }
+  .step-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--mist); transition: all 0.3s;
+  }
+  .step-dot.active {
+    width: 22px; border-radius: 3px; background: var(--brand);
+  }
+
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; font-weight: 700;
+    color: var(--text-dark); margin-bottom: 4px;
+  }
+  .form-subtitle { font-size: 13px; color: var(--muted-light); margin-bottom: 22px; }
+
+  .field { margin-bottom: 14px; }
+  label {
+    display: block; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted-light); margin-bottom: 7px;
+  }
+
+  input, select {
+    width: 100%;
+    background: var(--mist);
+    border: 1.5px solid transparent;
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 15px; font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark); outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    -webkit-appearance: none;
+  }
+  input::placeholder { color: #8AABCC; }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231B4F8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center;
+    background-color: var(--mist); padding-right: 38px; cursor: pointer;
+  }
+  select option { background: #fff; color: var(--text-dark); }
+  input:focus, select:focus {
+    border-color: var(--brand); background: #fff;
+    box-shadow: 0 0 0 3px rgba(27,79,138,0.10);
+  }
+
+  .zona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .zona-btn {
+    background: var(--mist);
+    border: 1.5px solid transparent;
+    border-radius: 10px; padding: 12px 8px;
+    font-size: 13px; font-family: 'DM Sans', sans-serif;
+    color: var(--muted-light); cursor: pointer; transition: all 0.15s; text-align: center;
+  }
+  .zona-btn:hover { border-color: var(--mid); color: var(--brand); background: #fff; }
+  .zona-btn.selected {
+    background: #fff; border-color: var(--brand);
+    color: var(--brand); font-weight: 500;
+    box-shadow: 0 0 0 3px rgba(27,79,138,0.08);
+  }
+
+  /* ── CTA — gold ── */
+  .cta-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    border: none; border-radius: 12px; padding: 16px;
+    font-size: 16px; font-weight: 600; font-family: 'DM Sans', sans-serif;
+    color: var(--deep); cursor: pointer; margin-top: 18px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.01em; position: relative; overflow: hidden;
+  }
+  .cta-btn::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(200,168,75,0.38); }
+  .cta-btn:active { transform: scale(0.98); box-shadow: none; }
+  .cta-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ── Saiba mais — outline on blue ── */
+  .saiba-btn {
+    display: block; width: 100%;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.28);
+    border-radius: 12px; padding: 14px;
+    font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    color: rgba(255,255,255,0.75); cursor: pointer; margin-top: 12px;
+    transition: all 0.15s; text-align: center; text-decoration: none;
+  }
+  .saiba-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); color: #fff; }
+
+  /* Benefits */
+  .benefits {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-top: 24px;
+    animation: fadeUp 0.45s 0.2s ease both;
+  }
+  .benefit {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 14px 12px; text-align: center;
+  }
+  .benefit-icon { font-size: 20px; margin-bottom: 7px; }
+  .benefit-text { font-size: 12px; color: var(--muted-on-dark); line-height: 1.4; }
+  .benefit-text strong {
+    display: block; font-size: 13px; color: #fff;
+    font-weight: 500; margin-bottom: 2px;
+  }
+
+  .privacy {
+    text-align: center; font-size: 11px; color: var(--muted-on-dark);
+    margin-top: 20px; line-height: 1.5;
+    animation: fadeUp 0.45s 0.3s ease both;
+  }
+  .privacy a { color: var(--gold-light); text-decoration: none; }
+
+  /* Success */
+  .success {
+    display: none; text-align: center;
+    padding: 44px 8px; animation: fadeUp 0.5s ease both;
+  }
+  .success-icon {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: rgba(200,168,75,0.14); border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: var(--gold); margin: 0 auto 20px;
+  }
+  .success h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; color: #fff; margin-bottom: 10px;
+  }
+  .success h2 span { color: var(--gold); }
+  .success p { color: var(--muted-on-dark); font-size: 15px; line-height: 1.6; }
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #25D366; color: white; border: none; border-radius: 12px;
+    padding: 14px 24px; font-size: 15px; font-weight: 600;
+    font-family: 'DM Sans', sans-serif; cursor: pointer;
+    margin-top: 24px; text-decoration: none; transition: opacity 0.15s;
+  }
+  .whatsapp-btn:hover { opacity: 0.9; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .step-section { animation: fadeUp 0.3s ease both; }
+</style>
+</head>
+<body>
+
+<!-- DARK NAVY HEADER -->
+<div class="hero">
+  <div class="badge">Imóveis exclusivos</div>
+  <h1>Encontre o imóvel <em>perfeito</em> para você</h1>
+  <p class="hero-sub">Responda 4 perguntas rápidas e receba opções selecionadas que se encaixam no seu perfil.</p>
+  <div class="social-proof">
+    <div class="avatars">
+      <span>AL</span><span>MR</span><span>JP</span><span>+</span>
+    </div>
+    <div class="proof-text">
+      <strong>+127 famílias</strong> encontraram seu imóvel<br>nos últimos 30 dias
+    </div>
+  </div>
+</div>
+
+<!-- BRAND BLUE BODY -->
+<div class="body-section">
+
+  <!-- Form card -->
+  <div class="form-card" id="formCard">
+    <div class="steps">
+      <div class="step-dot active" id="dot0"></div>
+      <div class="step-dot" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+    </div>
+    <div class="form-title" id="formTitle">Vamos começar</div>
+    <div class="form-subtitle" id="formSubtitle">Preencha seus dados para receber os melhores imóveis</div>
+
+    <div id="step0" class="step-section">
+      <div class="field">
+        <label>Seu nome completo</label>
+        <input type="text" id="nome" placeholder="Ex: Maria Silva" autocomplete="name"/>
+      </div>
+      <button class="cta-btn" onclick="nextStep(1)">Continuar →</button>
+    </div>
+
+    <div id="step1" class="step-section" style="display:none">
+      <div class="field">
+        <label>Renda familiar mensal</label>
+        <select id="renda">
+          <option value="" disabled selected>Selecione uma faixa</option>
+          <option value="ate3k">Até R$ 3.000</option>
+          <option value="3k5k">R$ 3.000 – R$ 5.000</option>
+          <option value="5k10k">R$ 5.000 – R$ 10.000</option>
+          <option value="10k20k">R$ 10.000 – R$ 20.000</option>
+          <option value="acima20k">Acima de R$ 20.000</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Profissão</label>
+        <select id="profissao">
+          <option value="" disabled selected>Selecione sua profissão</option>
+          <option>Servidor público / Militar</option>
+          <option>CLT (funcionário registrado)</option>
+          <option>Empresário / Autônomo</option>
+          <option>Profissional liberal (médico, advogado…)</option>
+          <option>Aposentado / Pensionista</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <button class="cta-btn" onclick="nextStep(2)">Continuar →</button>
+    </div>
+
+    <div id="step2" class="step-section" style="display:none">
+      <div class="field">
+        <label>Zona de preferência</label>
+        <div class="zona-grid">
+          <button class="zona-btn" onclick="selectZona(this,'Zona Norte')">🧭 Zona Norte</button>
+          <button class="zona-btn" onclick="selectZona(this,'Zona Sul')">🌴 Zona Sul</button>
+          <button class="zona-btn" onclick="selectZona(this,'Zona Leste')">🏙️ Zona Leste</button>
+          <button class="zona-btn" onclick="selectZona(this,'Zona Oeste')">🌆 Zona Oeste</button>
+          <button class="zona-btn" onclick="selectZona(this,'Centro')">🏛️ Centro</button>
+          <button class="zona-btn" onclick="selectZona(this,'Qualquer')">📍 Qualquer zona</button>
+        </div>
+      </div>
+      <button class="cta-btn" id="zonaBtn" onclick="nextStep(3)" disabled>Continuar →</button>
+    </div>
+
+    <div id="step3" class="step-section" style="display:none">
+      <div class="field">
+        <label>Tipo de imóvel desejado</label>
+        <select id="tipo">
+          <option value="" disabled selected>Selecione o tipo</option>
+          <option>Apartamento</option>
+          <option>Casa</option>
+          <option>Casa em condomínio</option>
+          <option>Terreno</option>
+          <option>Comercial</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Prazo para comprar / alugar</label>
+        <select id="urgencia">
+          <option value="" disabled selected>Selecione o prazo</option>
+          <option value="imediato">Imediato (até 30 dias)</option>
+          <option value="curto">Curto prazo (1–3 meses)</option>
+          <option value="medio">Médio prazo (3–6 meses)</option>
+          <option value="pesquisando">Ainda estou pesquisando</option>
+        </select>
+      </div>
+      <button class="cta-btn" onclick="submitForm()">Quero ver meus imóveis ✦</button>
+    </div>
+  </div>
+
+  <!-- Saiba mais -->
+  <a class="saiba-btn" id="saibaMais" href="#" onclick="return false;">Saiba mais sobre nossa imobiliária ↓</a>
+
+  <!-- Success -->
+  <div class="success" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>Perfeito, <span id="nomeConfirm"></span>!</h2>
+    <p>Seu perfil foi registrado. Nossa equipe já está selecionando os melhores imóveis na <strong id="zonaConfirm" style="color:#fff"></strong> para você.</p>
+    <p style="margin-top:12px;font-size:13px;">📲 Entraremos em contato em até <strong style="color:#fff">2 horas</strong> pelo WhatsApp.</p>
+    <a class="whatsapp-btn" href="https://wa.me/5500000000000?text=Olá!%20Acabei%20de%20preencher%20o%20formulário%20e%20gostaria%20de%20ver%20imóveis." target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar com corretor agora
+    </a>
+  </div>
+
+  <!-- Benefits -->
+  <div class="benefits" id="benefits">
+    <div class="benefit">
+      <div class="benefit-icon">🔑</div>
+      <div class="benefit-text"><strong>Exclusividade</strong>Imóveis fora da internet</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">⚡</div>
+      <div class="benefit-text"><strong>Resposta rápida</strong>Contato em até 2h</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🎯</div>
+      <div class="benefit-text"><strong>Selecionado</strong>Só o que serve pra você</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🛡️</div>
+      <div class="benefit-text"><strong>Sem pressão</strong>Você decide o ritmo</div>
+    </div>
+  </div>
+
+  <p class="privacy">🔒 Seus dados são 100% seguros e nunca serão compartilhados.</p>
+</div>
+
+<script>
+  let currentStep = 0, selectedZona = '';
+  const data = {};
+  const stepConfig = [
+    { title:'Vamos começar',         subtitle:'Como podemos te chamar?' },
+    { title:'Seu perfil financeiro', subtitle:'Para encontrar o imóvel certo para você' },
+    { title:'Onde você quer morar?', subtitle:'Escolha sua zona de preferência' },
+    { title:'Quase lá!',             subtitle:'Últimos detalhes para sua busca' },
+  ];
+
+  function nextStep(n) {
+    if (n===1) { const v=document.getElementById('nome').value.trim(); if(!v){shake('nome');return;} data.nome=v; }
+    if (n===2) {
+      const r=document.getElementById('renda').value, p=document.getElementById('profissao').value;
+      if(!r)shake('renda'); if(!p)shake('profissao'); if(!r||!p)return;
+      data.renda=r; data.profissao=p;
+    }
+    if (n===3) { if(!selectedZona)return; data.zona=selectedZona; }
+
+    document.getElementById('step'+currentStep).style.display='none';
+    currentStep=n;
+    const s=document.getElementById('step'+n);
+    s.style.display='block'; s.style.animation='none'; s.offsetHeight; s.style.animation='';
+    document.getElementById('formTitle').textContent=stepConfig[n].title;
+    document.getElementById('formSubtitle').textContent=stepConfig[n].subtitle;
+    for(let i=0;i<4;i++) document.getElementById('dot'+i).classList.toggle('active',i===n);
+  }
+
+  function selectZona(btn,zona) {
+    document.querySelectorAll('.zona-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected'); selectedZona=zona;
+    document.getElementById('zonaBtn').disabled=false;
+  }
+
+  function shake(id) {
+    const el=document.getElementById(id);
+    el.style.borderColor='rgba(220,60,60,0.65)';
+    el.style.animation='shake 0.3s ease';
+    setTimeout(()=>{ el.style.borderColor=''; el.style.animation=''; },1400);
+  }
+
+const WEBHOOK_URL = 'https://abc123.ngrok-free.app/lead';
+  function mostrarSucesso() {
+    document.getElementById('formCard').style.display='none';
+    document.getElementById('saibaMais').style.display='none';
+    document.getElementById('benefits').style.display='none';
+    document.getElementById('successScreen').style.display='block';
+    document.getElementById('nomeConfirm').textContent=data.nome.split(' ')[0];
+    document.getElementById('zonaConfirm').textContent=data.zona;
+  }
+
+  function submitForm() {
+    const t=document.getElementById('tipo').value, u=document.getElementById('urgencia').value;
+    if(!t)shake('tipo'); if(!u)shake('urgencia'); if(!t||!u)return;
+    data.tipo=t; data.urgencia=u;
+
+    const btn=document.querySelector('#step3 .cta-btn');
+    btn.textContent='Enviando...'; btn.disabled=true;
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(() => mostrarSucesso())
+    .catch(() => mostrarSucesso());
+  }
+
+  const s=document.createElement('style');
+  s.textContent='@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}';
+  document.head.appendChild(s);
+</script>
+</body>
+</html>

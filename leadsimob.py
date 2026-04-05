@@ -9,8 +9,8 @@ from google.oauth2.service_account import Credentials
 
 app = Flask(__name__)
 
-TELEGRAM_TOKEN   = "8709949262:AAGi8EaXV1B2H0rKYyZh9pLk0YiYCrVR7OU"
-TELEGRAM_CHAT_ID = "8520974946"
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
 GOOGLE_CREDS_FILE    = "credentials.json"
 GOOGLE_SHEET_NAME    = "Leads Imobiliária"

@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 TELEGRAM_TOKEN    = os.environ.get("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID  = os.environ.get("TELEGRAM_CHAT_ID")
-GOOGLE_SHEET_NAME = os.environ.get("GOOGLE_SHEET_NAME", "Leads Imobiliários")
+GOOGLE_SHEET_NAME = os.environ.get("GOOGLE_SHEET_NAME", "LeadsImobiliaria")
 GOOGLE_CREDS_JSON = os.environ.get("GOOGLE_CREDS_JSON")  # JSON inteiro como string
 
 RENDAS = {

@@ -1,6 +1,9 @@
 import os
 import json
+import traceback
 from datetime import datetime
+from dotenv import load_dotenv
+load_dotenv()
 
 import gspread
 import requests
@@ -112,7 +115,7 @@ def receber_lead():
         return resp
 
     except Exception as e:
-        print(f"[ERRO] {e}")
+        print(f"[ERRO] {traceback.format_exc()}")
         return jsonify({"status": "erro", "msg": str(e)}), 500
 
 

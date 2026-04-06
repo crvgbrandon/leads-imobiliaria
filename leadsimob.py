@@ -139,6 +139,15 @@ def teste_telegram():
     }).ok
     return jsonify({"telegram_ok": ok})
 
+@app.route("/debug", methods=["GET"])
+def debug():
+    return jsonify({
+        "GOOGLE_CREDS_JSON": "set" if GOOGLE_CREDS_JSON else "VAZIO",
+        "TELEGRAM_TOKEN": "set" if TELEGRAM_TOKEN else "VAZIO",
+        "TELEGRAM_CHAT_ID": "set" if TELEGRAM_CHAT_ID else "VAZIO",
+        "GOOGLE_SHEET_NAME": GOOGLE_SHEET_NAME,
+    })
+
 
 # ── Iniciar ───────────────────────────────────────────────────
 if __name__ == "__main__":

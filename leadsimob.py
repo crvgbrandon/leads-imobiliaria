@@ -148,6 +148,13 @@ def debug():
         "GOOGLE_SHEET_NAME": GOOGLE_SHEET_NAME,
     })
 
+@app.route("/debug-sheets", methods=["GET"])
+def debug_sheets():
+    try:
+        planilha = conectar_planilha()
+        return jsonify({"status": "ok", "titulo": planilha.title})
+    except Exception as e:
+        return jsonify({"status": "erro", "msg": traceback.format_exc()})
 
 # ── Iniciar ───────────────────────────────────────────────────
 if __name__ == "__main__":

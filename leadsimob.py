@@ -5,6 +5,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
 
+import sys
 import gspread
 import requests
 from flask import Flask, request, jsonify
@@ -115,7 +116,7 @@ def receber_lead():
         return resp
 
     except Exception as e:
-        print(f"[ERRO] {traceback.format_exc()}")
+        print(f"[ERRO] {traceback.format_exc()}", file=sys.stderr, flush=True)
         return jsonify({"status": "erro", "msg": str(e)}), 500
 
 
